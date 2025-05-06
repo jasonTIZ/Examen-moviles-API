@@ -1,0 +1,8 @@
+D:\Moviles\API examen\Examen-moviles-API\api\obj\Debug\net8.0\api.csproj.AssemblyReference.cache
+D:\Moviles\API examen\Examen-moviles-API\api\obj\Debug\net8.0\api.GeneratedMSBuildEditorConfig.editorconfig
+D:\Moviles\API examen\Examen-moviles-API\api\obj\Debug\net8.0\api.AssemblyInfoInputs.cache
+D:\Moviles\API examen\Examen-moviles-API\api\obj\Debug\net8.0\api.AssemblyInfo.cs
+D:\Moviles\API examen\Examen-moviles-API\api\obj\Debug\net8.0\api.csproj.CoreCompileInputs.cache
+D:\Moviles\API examen\Examen-moviles-API\api\obj\Debug\net8.0\api.MvcApplicationPartsAssemblyInfo.cs
+D:\Moviles\API examen\Examen-moviles-API\api\obj\Debug\net8.0\api.MvcApplicationPartsAssemblyInfo.cache
+D:\Moviles\API examen\Examen-moviles-API\api\obj\Debug\net8.0\api.sourcelink.json
