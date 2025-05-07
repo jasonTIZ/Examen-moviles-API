@@ -23,21 +23,20 @@ namespace api.Controllers
         public async Task<ActionResult<IEnumerable<StudentDto>>> GetStudentsByCourse([FromQuery] int courseId)
         {
             var students = await _context.Students
-                .Include(s => s.Courses)
-                .Where(s => s.Courses.Any(c => c.Id == courseId))
+                .Include(s => s.Course)
+                .Where(s => s.CourseId == courseId)
                 .Select(s => s.ToDto())
                 .ToListAsync();
 
             return Ok(students);
         }
 
-
         // GET: api/Student/5
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentDto>> GetStudent(int id)
         {
             var student = await _context.Students
-                .Include(s => s.Courses)
+                .Include(s => s.Course)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (student == null)
@@ -48,39 +47,34 @@ namespace api.Controllers
             return Ok(student.ToDto());
         }
 
-
         // POST: api/Student
         [HttpPost]
         public async Task<ActionResult<StudentResponseDto>> CreateStudent([FromBody] CreateStudentRequestDto dto)
         {
-            // Validar que todos los cursos existen
-            var courses = await _context.Courses
-                .Where(c => dto.CourseIds.Contains(c.Id))
-                .ToListAsync();
+            var course = await _context.Courses.FindAsync(dto.CourseId);
 
-            if (courses.Count != dto.CourseIds.Count)
+            if (course == null)
             {
                 return BadRequest(new
                 {
                     status = "error",
-                    message = "Uno o más IDs de cursos no son válidos."
+                    message = "ID de curso no válido."
                 });
             }
 
-            var student = dto.ToStudentFromCreateDto(courses);
+            var student = dto.ToStudentFromCreateDto(course);
 
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
             var studentDto = student.ToDto();
 
-            // Notificación opcional
             try
             {
                 await FirebaseHelper.SendPushNotificationToTopicAsync(
-                    topic: "event_notifications",
+                    topic: "primer_examen",
                     title: "Nueva inscripción!",
-                    body: $"Estudiante \"{student.Name}\" se ha registrado en {courses.Count} curso(s)."
+                    body: $"Estudiante \"{student.Name}\" se ha registrado en el curso \"{course.Name}\"."
                 );
             }
             catch (Exception ex)
@@ -101,7 +95,7 @@ namespace api.Controllers
         public async Task<ActionResult<StudentResponseDto>> UpdateStudent(int id, [FromBody] UpdateStudentRequestDto dto)
         {
             var student = await _context.Students
-                .Include(s => s.Courses)
+                .Include(s => s.Course)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (student == null)
@@ -109,16 +103,14 @@ namespace api.Controllers
                 return NotFound(new { status = "error", message = $"Estudiante con ID {id} no encontrado." });
             }
 
-            var courses = await _context.Courses
-                .Where(c => dto.CourseIds.Contains(c.Id))
-                .ToListAsync();
+            var course = await _context.Courses.FindAsync(dto.CourseId);
 
-            if (courses.Count != dto.CourseIds.Count)
+            if (course == null)
             {
-                return BadRequest(new { status = "error", message = "Uno o más IDs de cursos no son válidos." });
+                return BadRequest(new { status = "error", message = "ID de curso no válido." });
             }
 
-            student.UpdateFromDto(dto, courses);
+            student.UpdateFromDto(dto, course);
             await _context.SaveChangesAsync();
 
             return Ok(new StudentResponseDto

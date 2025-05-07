@@ -13,28 +13,29 @@ namespace api.Mappers
                 Name = student.Name,
                 Email = student.Email,
                 Phone = student.Phone,
-                Courses = student.Courses.Select(c => c.ToDto()).ToList()
+                Course = student.Course.ToDto() // Cambiado: una sola instancia
             };
         }
 
-        public static Student ToStudentFromCreateDto(this CreateStudentRequestDto dto, List<Course> courses)
+        public static Student ToStudentFromCreateDto(this CreateStudentRequestDto dto, Course course)
         {
             return new Student
             {
                 Name = dto.Name,
                 Email = dto.Email,
                 Phone = dto.Phone,
-                Courses = courses
+                CourseId = course.Id,
+                Course = course
             };
         }
 
-        public static void UpdateFromDto(this Student student, UpdateStudentRequestDto dto, List<Course> courses)
+        public static void UpdateFromDto(this Student student, UpdateStudentRequestDto dto, Course course)
         {
             student.Name = dto.Name;
             student.Email = dto.Email;
             student.Phone = dto.Phone;
-            student.Courses = courses;
+            student.CourseId = course.Id;
+            student.Course = course;
         }
-
     }
 }

@@ -45,7 +45,7 @@ public static class FirebaseHelper
   {
     // Synchronously load the credentials
     GoogleCredential credential = GoogleCredential
-        .FromFile("firebase-services.json")
+        .FromFile("firebase-adminsdk.json")
         .CreateScoped("https://www.googleapis.com/auth/firebase.messaging");
 
     // Now you can await on the async method to get the access token

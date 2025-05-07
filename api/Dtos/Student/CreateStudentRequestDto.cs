@@ -6,7 +6,7 @@ namespace api.Dtos.Student
         public required string Email { get; set; }
         public required string Phone { get; set; }
 
-        // Múltiples cursos
-        public required List<int> CourseIds { get; set; }
+        // Un solo curso asignado
+        public required int CourseId { get; set; }
     }
 }

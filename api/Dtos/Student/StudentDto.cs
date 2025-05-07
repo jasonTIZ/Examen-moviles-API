@@ -9,7 +9,7 @@ namespace api.Dtos.Student
         public required string Email { get; set; }
         public required string Phone { get; set; }
 
-        // Lista de cursos asignados
-        public required List<CourseDto> Courses { get; set; }
+        // Curso asignado (relación uno a muchos)
+        public required CourseDto Course { get; set; }
     }
 }
