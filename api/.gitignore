@@ -1,2 +1,24 @@
+## Build results
 bin/
 obj/
+out/
+[Bb]uild/
+[Ll]og/
+*.log
+
+## Swagger generated files (if any)
+swagger/
+swagger-ui/
+*.swagger.json
+
+## Entity Framework Migrations (optional)
+Migrations/
+
+## Other
+*.pdb
+*.cache
+*.bak
+*.tmp
+*.swp
+*.orig
+*.rej
