@@ -22,3 +22,5 @@ Migrations/
 *.swp
 *.orig
 *.rej
+
+firebase-adminsdk.json
