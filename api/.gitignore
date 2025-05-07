@@ -23,4 +23,4 @@ Migrations/
 *.orig
 *.rej
 
-firebase-adminsdk.json
+api/firebase-adminsdk.json
