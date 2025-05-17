@@ -11,7 +11,10 @@ namespace api.Mappers
             {
                 Id = course.Id,
                 Name = course.Name,
-                Description = course.Description
+                Description = course.Description,
+                ImageUrl = course.ImageUrl,
+                Schedule = course.Schedule,
+                Professor = course.Professor
             };
         }
 
@@ -20,7 +23,10 @@ namespace api.Mappers
             return new Course
             {
                 Name = dto.Name,
-                Description = dto.Description
+                Description = dto.Description,
+                ImageUrl = dto.ImageUrl,
+                Schedule = dto.Schedule,
+                Professor = dto.Professor
             };
         }
 
@@ -28,6 +34,9 @@ namespace api.Mappers
         {
             course.Name = dto.Name;
             course.Description = dto.Description;
+            course.ImageUrl = dto.ImageUrl;
+            course.Schedule = dto.Schedule;
+            course.Professor = dto.Professor;
         }
     }
 }
